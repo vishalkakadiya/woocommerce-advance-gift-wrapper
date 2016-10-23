@@ -1,0 +1,44 @@
+/**
+ * Gift wrapper product selection form's style.
+ *
+ * Form will display at the end of woocommerce cart page.
+ */
+ 
+.agw-wrapper { 
+	border: 1px solid #935386; 
+	padding: 15px; 
+}
+.agw-gift-wrapper { 
+	box-sizing: border-box; 
+	float: left; 
+	padding: 10px; 
+	width: 25%; 
+}
+.agw-gift-wrap-price { 
+	text-align: center; 
+}
+.agw-gift-wrap-price label { 
+	margin-top: 15px; 
+}
+.agw-gift-wrap-price input { 
+	margin: 4px 10px 0 -30px; 
+}
+.agw-gift-fields { 
+	border-top: 1px solid #935386; 
+	clear: both; 
+	padding: 25px 25px 0; 
+}
+.agw-wrapper input[type="file"] { 
+	border: none; 
+	box-shadow: none; 
+	padding: 0 22px; 
+}
+.agw-wrapper input[type="submit"] { 
+	background: #935386; 
+}
+
+/* Common CSS */
+.agw-error {
+	clear: both;
+	color: #cc0000;
+}

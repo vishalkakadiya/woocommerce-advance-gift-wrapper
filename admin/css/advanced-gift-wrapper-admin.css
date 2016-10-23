@@ -1,0 +1,16 @@
+/**
+ * Backend side settings page's style.
+ *
+ * This css will apply on 'WC - Gift Wrap' menu page on backend 
+ * settings screen.
+ */
+
+.agw-gift-setting-title {
+    border-bottom: 1px solid;
+    margin: 20px 0 10px 20px;
+    padding-bottom: 14px;
+}
+.vk-agw-gift-image {  
+	width: 100px; 
+	height: auto; 
+}
