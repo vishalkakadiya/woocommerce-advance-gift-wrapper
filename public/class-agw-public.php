@@ -41,6 +41,24 @@ class AGW_Public {
 	private $version;
 
 	/**
+	 * Gift wrap term
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 * @var      string     custom-term slug
+	 */
+	private $agw_term = 'agw-gift-wrap';
+
+	/**
+	 * Product category
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 * @var      string     custom-term slug
+	 */
+	private $taxonomy = 'product_cat';
+
+	/**
 	 * Initialize the class and set its properties.
 	 *
 	 * @since   1.0.0
@@ -100,7 +118,7 @@ class AGW_Public {
 			if ( 1 != $gift_in_shop ) {
 				$query->set( 'tax_query', array( 
 					array(
-						'taxonomy' 	=> AGW_POST_TAXONOMY,
+						'taxonomy' 	=> $this->taxonomy,
 						'field' 	=> 'slug',
 						'terms' 	=> array( AGW_POST_TERM ),
 						'operator' => 'NOT IN',
@@ -119,16 +137,16 @@ class AGW_Public {
 	 * @since 1.0.0
 	 *
 	 * @param int $post_id Post ID.
-	 * @param int $new     Post Object
+	 * @param int $post    Post Object
 	 */
 	function update_gift_wrap_cache( $post_id, $post ) {
-		if ( AGW_POST_TYPE == $post->post_type ) {
-			$product_terms = get_the_terms( $post, AGW_POST_TAXONOMY );
+		if ( 'product' == $post->post_type ) {
+			$product_terms = get_the_terms( $post, $this->taxonomy );
 
 			if ( ! empty( $product_terms ) ) {
 				foreach ($product_terms as $product_term ) {
 
-					if ( AGW_POST_TERM == $product_term->slug ) {
+					if ( $this->agw_term == $product_term->slug ) {
 						// Force the cache refresh for Gift wrap posts.
 						$this->get_gift_wrap_cache( true );
 					}
@@ -138,14 +156,14 @@ class AGW_Public {
 	}
 
 	/**
-	 * Retrieve posts with `AGW_POST_TERM(constant)` product category term 
+	 * Retrieve posts of 'Gift' product category term
 	 * and cache results.
 	 *
 	 * @since 1.0.0
 	 *
 	 * @param bool $force_refresh Optional. Whether to force the cache 
 	 * 							  to be refreshed. Default false.
-	 * @return array|WP_Error Array of WP_Post objects with `AGW_POST_TERM(constant)`  
+	 * @return array|WP_Error Array of WP_Post objects with `Gift`
 	 * 						  product category term, WP_Error object otherwise.
 	 */
 	function get_gift_wrap_cache( $force_refresh = false ) {
@@ -154,10 +172,10 @@ class AGW_Public {
 
 	    // If nothing is found, build the object.
 	    if ( true === $force_refresh || false === $gift_wrap_posts ) {
-	        // Grab posts with `AGW_POST_TERM(constant)` product category term.
+	        // Grab posts with `Gift` product category term.
 	        $gift_wrap_posts = new WP_Query( array(
-				'post_type'					=> AGW_POST_TYPE,
-				AGW_POST_TAXONOMY		    => AGW_POST_TERM,
+				'post_type'				=> 'product',
+				$this->taxonomy		    => $this->agw_term,
 
 				// Some important pramas
 				'no_found_rows'		    	=> true, // In our case pagination isn't needed

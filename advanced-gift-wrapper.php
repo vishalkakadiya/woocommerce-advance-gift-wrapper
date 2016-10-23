@@ -32,8 +32,6 @@ if ( ! defined( 'WPINC' ) ) {
 
 
 define( 'AGW_POST_TYPE', 'product' );
-define( 'AGW_POST_TAXONOMY', 'product_cat' );
-define( 'AGW_POST_TERM', 'agw-gift-wrap' );
 
 /**
  * The code that runs during plugin activation.
